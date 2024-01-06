@@ -1,0 +1,79 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using ProjectHTU.DTO
+@using ProjectHTU.Entities;
+@model InsertStudentDTO
+
+<body class="container" style="margin-top:95px">
+
+    <form action="/Student/Insert">
+        <h3>Create a new student </h3>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" asp-for="firstName" placeholder="FirstName ">
+                <span asp-validation-for="firstName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="secondName">Second Name</label>
+                <input type="text" class="form-control" asp-for="secondName" placeholder="Second Name ">
+                <span asp-validation-for="secondName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="thiredName ">Third  Name</label>
+                <input type="text" class="form-control" asp-for="thiredName" placeholder="Third Name ">
+                <span asp-validation-for="thiredName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" asp-for="lastName" placeholder="Last Name ">
+                <span asp-validation-for="lastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="major">Major</label>
+                <select asp-for="major" class="form-select" aria-label="Default select example">
+                    <option> select major </option>
+                    <option> Computer Sience </option>
+                    <option> Computer Information System </option>
+                    <option> Management Information System </option>
+                    <option> Computer Engineering </option>
+                    <option> Artificial Intelligence </option>
+                    <option> Other </option>
+                    <span asp-validation-for="major" class="text-danger"></span>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+
+                <label style="display:block" class="form-control-label">Roles</label>
+                <select asp-for="major" class="form-select" aria-label="Default select example">
+                    <option> select role </option>
+                    @foreach (var R in (List<IdentityRole>)ViewBag.roles)
+                    {
+                        <option value="@R.Id">@R.Name</option>
+                    }
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" asp-for="Email" placeholder="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="inputPassword4">Password</label>
+                <input type="password" class="form-control" asp-for="password" placeholder="Password">
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button id="registerSubmit" type="submit" class=" btn btn-lg btn-success">Add Student</button>
+    </form>
+</body>
+@{
+
+}

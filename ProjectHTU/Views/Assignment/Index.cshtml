@@ -1,0 +1,37 @@
+﻿@using ProjectHTU.Entities
+
+<hr />
+<body class="container" style="margin-top:100px">
+    <div class="card-body">
+        <table class="table table-head-bg-success table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Note</th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var s in (List<Assignment>)ViewBag.assignments)
+                {
+                    <tr>
+                        <th>-</th>
+                        <th> @s.assignmentName </th>
+
+                        <th> @s.assignmentDescription </th>
+                        <th>@s.assignmentNote</th>
+
+                        <th> <a class="btn btn-secondary" href="/TeamLeader/Edit?Id=@s.assignmentId"> Edit  </a></th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+@{
+
+}

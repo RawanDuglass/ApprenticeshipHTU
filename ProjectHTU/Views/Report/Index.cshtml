@@ -1,0 +1,36 @@
+﻿@using ProjectHTU.Entities
+
+<body class="container" style="margin-top:100px">
+
+    <hr />
+    @if (ViewBag.NoDataMessage != null)
+    {
+        <img src="/asset/img/nodata.jpg" width="500" hight="450" style="display: block;
+ margin-left: auto;
+ margin-right: auto;">
+
+
+    }
+    else
+    {
+        <table class="table table-striped">
+            <tr>
+                <th> ReportName </th>
+                <th> reportDescription </th>
+                <th> reportNotes </th>
+                <th> report statues </th>
+            </tr>
+            @foreach (var s in (List<Report>)ViewBag.reports)
+            {
+                <tr>
+                    <th> @s.reportName </th>
+                    <th> @s.reportDescription</th>
+                    <th> @s.reportNotes </th>
+                    <th> @s.reportStatus.reportStatusName </th>
+                    <th><a class="btn btn-primary" href="/Report/Edit?Id=@s.reportId"> Edit  </a></th>
+                    <th><a class="btn btn-primary" href="/Report/Delete?Id=@s.reportId"> Delete  </a></th>
+                </tr>
+            }
+        </table>
+    }
+</body>

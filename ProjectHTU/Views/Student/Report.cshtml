@@ -1,0 +1,84 @@
+﻿@using ProjectHTU.Entities
+@model Report
+
+<body class="container" style="margin-top:100px">
+    <div class="container" class=" col-md-6">
+
+        <div class="card-header ">
+            @if (User.IsInRole("STUDENT"))
+            {
+                <a class="btn btn-secondary" href="/Report/Add?Id=@Model.assignmentId"> Add new Report </a>
+            }
+            <p class="card-category ">  </p>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.NoDataMessage != null)
+            {
+                <img src="/asset/img/nodata.jpg" width="500" hight="450" style="display: block; margin-left: auto; margin-right: auto;">
+            }
+            else
+            {
+                <table class="table table-head-bg-success table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">ReportName</th>
+                            <th scope="col">reportDescription</th>
+                            <th scope="col">reportNotes</th>
+                            <th scope="col">ReportStatues</th>
+                            <th scope="col">Attachment</th>
+                            @if (User.IsInRole("STUDENT"))
+                            {
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            }
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var s in (List<Report>)ViewBag.reports)
+                        {
+                            <tr>
+                                <th>-</th>
+                                <th> @s.reportName </th>
+                                <th> @s.reportDescription</th>
+                                <th> @s.reportNotes </th>
+                                <th>@s.reportStatus.reportStatusName</th>
+                                <th>
+                                    <ul>
+                                        @foreach (var x in (List<Document>)ViewBag.doc)
+                                        {
+                                            if (x.reportId == s.reportId)
+                                            {
+                                                <li>
+                                                    <a target="_blank" href="/Home/GetFile?documentId=@x.documentId"> @x.documentName </a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </th>
+                                @if (User.IsInRole("STUDENT"))
+                                {
+                                    @if (s.reportStatusId == 1)
+                                    {
+                                        <th><a class="btn btn-warning" href="/Report/Edit?Id=@s.reportId"> Edit  </a></th>
+                                        <th><a class="btn btn-danger" href="/Report/Delete?Id=@s.reportId "> Delete  </a></th>
+                                    }
+                                    else if (s.reportStatusId == 2)
+                                    {
+                                        <th></th>
+                                        <th><a class="btn btn-danger" href="/Report/Delete?Id=@s.reportId "> Delete  </a></th>
+                                    }
+                                    else if (s.reportStatusId == 3)
+                                    {
+                                        <th><a class="btn btn-warning" href="/Report/Edit?Id=@s.reportId"> Edit  </a></th>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</body>

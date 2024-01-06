@@ -1,0 +1,60 @@
+﻿@using ProjectHTU.DTO
+@using ProjectHTU.Entities;
+@model UpdateTeamLeaderDTO
+
+<body class="container" style="margin-top:100px">
+
+    <form action="/TeamLeader/Update">
+        <h2> Edit TeamLeader </h2>
+        <hr />
+        <input name="Id" style="display:none" value="@ViewBag.teamleader.Id " class="form-control" autocomplete="username" aria-required="true" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="firstName">First Name</label>
+                <input type="text" class="form-control" asp-for="firstName" value="@ViewBag.teamleader.firstName " placeholder="First Name ">
+                <span asp-validation-for="firstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="secondName">Second Name</label>
+                <input type="text" class="form-control" asp-for="secondName" value="@ViewBag.teamleader.secondName " placeholder="Second Name ">
+                <span asp-validation-for="secondName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="thiredName">Third Name</label>
+                <input type="text" class="form-control" asp-for="thiredName" value="@ViewBag.teamleader.thiredName " placeholder="Third Name ">
+                <span asp-validation-for="thiredName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="lastName">Last Name</label>
+                <input type="text" class="form-control" asp-for="lastName" value="@ViewBag.teamleader.lastName " placeholder="Last Name ">
+                <span asp-validation-for="lastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label asp-for="Email">Email</label>
+                <input type="text" class="form-control" asp-for="Email" value="@ViewBag.teamleader.Email " placeholder="Email ">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="companyId">Company</label>
+                    <select asp-for="companyId" class="form-select" aria-label="Default select example">
+                        @foreach (var s in (List<Company>)ViewBag.companies)
+                        {
+                            <option value="@s.companyId">@s.companyName</option>
+                        }
+                        <span asp-validation-for="companyId" class="text-danger"></span>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button id="registerSubmit" type="submit" class=" btn btn-lg btn-success"> Submit </button>
+    </form>
+</body>
+
+@{
+
+}

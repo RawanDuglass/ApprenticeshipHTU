@@ -1,0 +1,32 @@
+﻿@using ProjectHTU.Entities
+<body class="container" style="margin-top:100px">
+
+    <a class="btn btn-primary" href="/SchoolSupervisor/Add"> Add new Report </a>
+    <hr />
+
+    <table class="table table-striped">
+        <tr>
+            <th> ReportName </th>
+            <th> reportDescription </th>
+            <th> reportNotes </th>
+            <th> Attachment </th>
+            <th> report statues </th>
+
+        </tr>
+
+        @foreach (var s in (List<Report>)ViewBag.reports)
+        {
+            <tr>
+                <th> @s.reportName </th>
+                <th> @s.reportDescription</th>
+                <th> @s.reportNotes </th>
+                <th><a class="btn btn-primary" href="/Assignment/Edit?Id=@s.reportId"> Edit  </a></th>
+                <th><a class="btn btn-primary" href="/SchoolSupervisor/Delete?Id=.Id"> Delete  </a></th>
+
+            </tr>
+        }
+    </table>
+</body>
+@{
+
+}

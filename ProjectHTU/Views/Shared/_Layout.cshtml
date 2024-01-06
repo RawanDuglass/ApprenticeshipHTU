@@ -1,0 +1,233 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using ProjectHTU.Entities;
+@inject UserManager<Person> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link rel="stylesheet" href="/asset/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="/asset/css/ready.css">
+    <link rel="stylesheet" href="/asset/css/demo.css">
+    <title>
+        Apprenticeship
+    </title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <link href="/assets/css/login.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.svg" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: eStartup
+    * Updated: Sep 18 2023 with Bootstrap v5.3.2
+    * Template URL: https://bootstrapmade.com/estartup-bootstrap-landing-page-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            @if (User.IsInRole("ADMIN") || User.IsInRole("STUDENT") || User.IsInRole("SCHOOLSUPERVISOR") || User.IsInRole("TEAMLEADER"))
+            {
+                <h1 class="bi bi-buildings"></h1>
+            }
+            else
+            {
+
+                <div id="logo">
+
+                    <h1 class="bi bi-buildings" href="index.html">
+
+                        Apprenticeship
+                    </h1>
+                </div>
+            }
+            <nav id="navbar" class="navbar">
+                <ul>
+                    @if (User.IsInRole("ADMIN") || User.IsInRole("STUDENT") || User.IsInRole("SCHOOLSUPERVISOR") || User.IsInRole("TEAMLEADER"))
+                    {
+                        <li><a class="nav-link scrollto active" asp-controller="Home" asp-action="Index">Home</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="nav-link scrollto active" asp-controller="Home" asp-action="Index">Home</a></li>
+
+                    }
+                    @if (!User.IsInRole("ADMIN") && !User.IsInRole("STUDENT") && !User.IsInRole("SCHOOLSUPERVISOR") && !User.IsInRole("TEAMLEADER"))
+                    {
+                        <li><a class="nav-link scrollto" href="#get-started">About</a></li>
+                        <li><a class="nav-link scrollto" href="#features">Features</a></li>
+                        <li><a class="nav-link scrollto" href="#testimonials">Team</a></li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+
+                    }
+
+                    @if (User.IsInRole("STUDENT") || User.IsInRole("TEAMLEADER"))
+                    {
+
+
+                        <li class="dropdown">
+                            <a href="#"><span>Training </span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                @if (User.IsInRole("STUDENT"))
+                                {
+                                    <li><a href="/Training/TrainingStudent/?Id=@UserManager.GetUserAsync(User).Result.Id"> Training List</a></li>
+                                }
+                                @if (User.IsInRole("TEAMLEADER"))
+                                {
+                                    <li><a href="/Training/TrainingTeamleader/?Id=@UserManager.GetUserAsync(User).Result.Id"> Training List</a></li>
+
+                                }
+                                @if (User.IsInRole("ADMIN"))
+                                {
+                                    <li><a asp-controller="Training" asp-action="Add"> Add New Training</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (User.IsInRole("ADMIN") || User.IsInRole("SCHOOLSUPERVISOR"))
+                    {
+
+                        <li class="dropdown">
+                            <a href="#"><span>Training </span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a asp-controller="Training" asp-action="Index"> Training List</a></li>
+                                @if (User.IsInRole("ADMIN"))
+                                {
+                                    <li><a asp-controller="Training" asp-action="Add"> Add New Training</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#"><span>Student </span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a asp-controller="Student" asp-action="Index"> Student List</a></li>
+                                @if (User.IsInRole("ADMIN"))
+                                {
+                                    <li><a asp-controller="Student" asp-action="Add"> Add New Student</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#"><span>TeamLeader </span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a asp-controller="TeamLeader" asp-action="Index"> TeamLeader List</a></li>
+                                @if (User.IsInRole("ADMIN"))
+                                {
+                                    <li><a asp-controller="TeamLeader" asp-action="Add"> Add New TeamLeader</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#"><span>SchoolSupervisor </span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a asp-controller="SchoolSupervisor" asp-action="Index"> SchoolSupervisor List</a></li>
+                                @if (User.IsInRole("ADMIN"))
+                                {
+                                    <li><a asp-controller="SchoolSupervisor" asp-action="Add"> Add New SchoolSupervisor</a></li>
+                                }
+                            </ul>
+                        </li>
+                        @if (User.IsInRole("ADMIN"))
+                        {
+                            <li class="dropdown">
+                                <a href="#"><span> Admin </span> <i class="bi bi-chevron-down"></i></a>
+                                <ul>
+                                    <li><a href="/Identity/Account/Register"> Register New Admin</a></li>
+
+
+                                </ul>
+                            </li>
+                        }
+
+                    }
+                    @if (!User.IsInRole("ADMIN") && !User.IsInRole("STUDENT") && !User.IsInRole("SCHOOLSUPERVISOR") && !User.IsInRole("TEAMLEADER"))
+                    {
+                        <li><a class="btn " href="/Identity/Account/Login">Login</a></li>
+                    }
+
+                    @if (User.IsInRole("ADMIN") || User.IsInRole("STUDENT") || User.IsInRole("SCHOOLSUPERVISOR") || User.IsInRole("TEAMLEADER"))
+                    {
+
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <li style="display:inline" class="nav-item dropdown">
+                                <a class=" bi bi-people-fill profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <span>Welcome, @UserManager.GetUserAsync(User).Result.firstName!</span> </a>
+
+                            </li>
+                        }
+                        <li style="margin-left:20px">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index" , "Home", new { area = "" })" method="post">
+                                <button style="font-size:medium" type="submit" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</button>
+                            </form>
+                        </li>
+                    }
+
+                    <!-- /.dropdown-user -->
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </ul>
+            </nav><!-- .navbar -->
+        </div>
+    </header><!-- End Header -->
+    @RenderBody()
+    @RenderSection("Scripts", required: default)
+
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="/assets/vendor/aos/aos.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/assets/vendor/php-email-form/validate.js"></script>
+    <script src="
+https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js
+"></script>
+    <script src="
+https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js
+"></script>
+    <!-- Template Main JS File -->
+    <script src="/assets/js/main.js"></script>
+
+
+    <script src="/asset/js/core/jquery.3.2.1.min.js"></script>
+    <script src="/asset/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/asset/js/core/popper.min.js"></script>
+    <script src="/asset/js/core/bootstrap.min.js"></script>
+    <script src="/asset/js/plugin/chartist/chartist.min.js"></script>
+    <script src="/asset/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+    <script src="/asset/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script src="/asset/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+    <script src="/asset/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="/asset/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+    <script src="/asset/js/plugin/chart-circle/circles.min.js"></script>
+    <script src="/asset/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="/asset/js/ready.min.js"></script>
+    <script src="/asset/js/demo.js"></script>
+</body>
+</html>

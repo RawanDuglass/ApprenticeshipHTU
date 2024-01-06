@@ -1,0 +1,58 @@
+﻿@using ProjectHTU.Entities
+
+<body class="container" style="margin-top:100px">
+    <div class="container" class=" col-md-6">
+        <div class="card-header ">
+            @if (User.IsInRole("ADMIN"))
+            {
+                <a class="btn btn-secondary" href="/Training/Add"> Add Training </a>
+            }
+            <p class="card-category ">  </p>
+        </div>
+        <div class="card-body">
+            <table class="table table-head-bg-success table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">student</th>
+                        <th scope="col">supervisor</th>
+                        <th scope="col">teamleader</th>
+                        <th scope="col">school Name</th>
+                        <th scope="col">company name</th>
+                        <th scope="col">Objectives</th>
+                        <th scope="col">StartDate</th>
+                        <th scope="col">EndDate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var s in (List<Training>)ViewBag.trainings)
+                    {
+                        <tr>
+                            <th>-</th>
+                            <th> @s.student.fullName </th>
+                            <th> @s.schoolSupervisor.fullName </th>
+                            <th> @s.teamLeader.fullName </th>
+                            <th>@s.schoolSupervisor.school.schoolName</th>
+                            <th> @s.teamLeader.company.companyName </th>
+                            <th>
+
+                                @foreach (var x in (List<TrainingObjective>)ViewBag.trainingobj)
+                                {
+                                    if (x.trainingId == s.trainigId)
+                                    {
+                                        <p>  @x.objectives.objectiveName  </p>
+                                    }
+                                }
+                            </th>
+                            <th> @s.startDate.ToShortDateString() </th>
+                            <th> @s.endDate.ToShortDateString() </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+@{
+
+}

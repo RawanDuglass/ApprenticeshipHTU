@@ -1,0 +1,50 @@
+﻿@using ProjectHTU.DTO;
+@using ProjectHTU.Entities;
+@model InsertAssignmentDTO;
+
+
+<body class="container " style="margin-top:100px">
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="/css/bootstrap.min.css"></script>
+    <h3 style="text-align:center"> Report List For  @Model.assignmentName Assignment </h3>
+    <br />
+    @if (ViewBag.NoDataMessage != null)
+    {
+        <img src="/asset/img/nodata.jpg" width="500" hight="450" style="display: block; margin-left: auto; margin-right: auto;">
+    }
+    else
+    {
+        <ul class="ul">
+            @foreach (var s in (List<Report>)ViewBag.reports)
+            {
+
+                if (s.reportStatusId == 1)
+                {
+                    <li class="li" style="--accent-color:#B8860B">
+                        <div class="date">@s.reportName</div>
+                        <div class="title"> @s.assignments.startDate</div>
+                        <div class="descr">@s.reportDescription</div>
+                    </li>
+                }
+                else if (s.reportStatusId == 2)
+                {
+                    <li class="li" style="--accent-color:#228B22">
+                        <div class="date">@s.reportName</div>
+                        <div class="title"> @s.assignments.startDate</div>
+                        <div class="descr">@s.reportDescription</div>
+                    </li>
+                }
+                else if (s.reportStatusId == 3)
+                {
+                    <li class="li" style="--accent-color:#B22222">
+                        <div class="date">@s.reportName</div>
+                        <div class="title"> @s.assignments.startDate</div>
+                        <div class="descr">@s.reportDescription</div>
+                    </li>
+                }
+            }
+
+        </ul>
+    }
+</body>

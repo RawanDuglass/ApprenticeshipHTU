@@ -1,0 +1,45 @@
+﻿@using ProjectHTU.Entities
+
+<body class="container" style="margin-top:150px">
+
+    <div class="card-body">
+        @if (ViewBag.NoDataMessage != null)
+        {
+            <img src="/asset/img/nodata.jpg" width="500" hight="450" style="display: block;margin-left: auto; margin-right: auto;">
+        }
+        else
+        {
+            <table class="table table-head-bg-success table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">supervisor</th>
+                        <th scope="col">teamleader</th>
+                        <th scope="col">school Name</th>
+                        <th scope="col">company name</th>
+                        <th scope="col">StartDate</th>
+                        <th scope="col">EndDate</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var s in (List<Training>)ViewBag.trainings)
+                    {
+                        <tr>
+                            <th>-</th>
+                            <th> @s.schoolSupervisor.fullName </th>
+
+                            <th> @s.teamLeader.fullName </th>
+                            <th>@s.schoolSupervisor.school.schoolName</th>
+                            <th> @s.teamLeader.company.companyName </th>
+                            <th> @s.startDate.ToShortDateString() </th>
+                            <th> @s.endDate.ToShortDateString() </th>
+                            <th><a class="btn btn-secondary" href="/Assignment/StudentIndex?Id=@s.trainigId"> Assignments  </a></th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>

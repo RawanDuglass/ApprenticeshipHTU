@@ -1,0 +1,90 @@
+﻿@using ProjectHTU.DTO
+@using ProjectHTU.Entities;
+@model UpdateReportDTO
+
+
+<body class="container" style="margin-top:100px">
+
+    <form action="/Report/Update/" method="post" enctype="multipart/form-data">
+        <h2> Edit Report </h2>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="reportName">Report Name</label>
+                <input type="text" class="form-control" asp-for="reportName" value="@ViewBag.report.reportName " placeholder="Report Name ">
+                <span asp-validation-for="reportName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-12">
+                <label asp-for="reportDescription">Report Description</label>
+                <input type="text" class="form-control" asp-for="reportDescription" value="@ViewBag.report.reportDescription" placeholder="Report Description ">
+                <span asp-validation-for="reportDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label asp-for="reportNotes ">Report Notes</label>
+                <input type="text" class="form-control" asp-for="reportNotes" value="@ViewBag.report.reportNotes " placeholder="Report Notes">
+                <span asp-validation-for="reportNotes" class="text-danger"></span>
+            </div>
+
+        </div>
+        <table id="example" class="table table-striped nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th> Attachment </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in (List<Document>)ViewBag.doc)
+                {
+                    if (Model.reportId == s.reportId)
+                    {
+                        <tr>
+                            <th> <a target="_blank" href="/Document/GetFile?documentId=@s.documentId"> @s.documentName </a></th>
+                            <th> <a class="btn btn-danger" href="/Document/Delete?reportId=@s.reportId&&documentId=@s.documentId"> Delete  </a></th>
+                        </tr>
+                        <br />
+                    }
+                }
+
+            </tbody>
+
+        </table>
+        <div class="mb-3">
+            <input class="form-control" type="file" name="formFile" id="formFileMultiple" multiple>
+        </div>
+        <button type="submit" class=" btn btn-lg btn-success">Submit</button>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input style="display:none" asp-for="assignmentId" value="@Model.assignmentId" class="form-control" autocomplete="username" aria-required="true" />
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input style="display:none" asp-for="reportStatusId" value="@Model.reportStatusId" class="form-control" autocomplete="username" aria-required="true" />
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input style="display:none" asp-for="documentId" value="@Model.documentId" class="form-control" autocomplete="username" aria-required="true" />
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input style="display:none" asp-for="reportId" value="@Model.reportId" class="form-control" autocomplete="username" aria-required="true" />
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+</body>

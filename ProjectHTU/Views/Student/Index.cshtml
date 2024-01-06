@@ -1,0 +1,49 @@
+﻿@using ProjectHTU.Entities
+@using ProjectHTU.Controllers
+
+<body class="container" style="margin-top:100px">
+
+    <div class="container" class="col-md-6">
+
+        <div class="card-header ">
+            @if (User.IsInRole("ADMIN"))
+            {
+                <a class="btn btn-secondary" href="/Student/Add"> Add Student </a>
+            }
+            <p class="card-category ">  </p>
+        </div>
+        <div class="card-body">
+            <table class="table table-head-bg-success table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Major</th>
+                        <th scope="col">Email</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var s in (List<Student>)ViewBag.students)
+                    {
+                        <tr>
+                            <th> - </th>
+                            <th> @s.fullName </th>
+                            <th> @s.major</th>
+                            <th> @s.Email </th>
+                            <th><a class="btn btn-secondary" href="/Training/TrainingStudent?Id=@s.Id"> Trainings  </a></th>
+                            @if (User.IsInRole("ADMIN"))
+                            {
+                                <th><a class="btn btn-warning " href="/Student/Edit?Id=@s.Id"> Edit  </a></th>
+                                <th><a class="btn btn-danger" href="/Student/Delete?Id=@s.Id"> Delete  </a></th>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,94 @@
+﻿@using ProjectHTU.Entities
+@model Assignment
+<body class="container" style="margin-top:100px">
+
+    <div class="container" class=" col-md-6">
+
+        <div class="card-header ">
+            @if (User.IsInRole("TEAMLEADER"))
+            {
+                <a class="btn btn-secondary" href="~/Assignment/Add?Id=@Model.trainingId"> Add new Assignment </a>
+            }
+            <p class="card-category ">  </p>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.NoDataMessage != null)
+            {
+                <img src="/asset/img/nodata.jpg" width="500" hight="450" style="display: block;margin-left: auto; margin-right: auto;">
+            }
+            else
+            {
+                <table class="table table-head-bg-success table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">objectives</th>
+                            <th scope="col">Attachment</th>
+                            @if (User.IsInRole("TEAMLEADER"))
+                            {
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                                <th scope="col">report</th>
+                            }
+                            @if (User.IsInRole("SCHOOLSUPERVISOR") || (User.IsInRole("ADMIN")))
+                            {
+                                <th scope="col"></th>
+                            }
+
+                    </thead>
+                    <tbody>
+                        @foreach (var s in (List<Assignment>)ViewBag.assignments)
+                        {
+                            <tr>
+                                <th>-</th>
+                                <th> @s.assignmentName </th>
+
+                                <th> @s.assignmentDescription </th>
+                                <th> @s.assignmentNote</th>
+                                <th>
+                                    @foreach (var x in (List<AssignmentObjectives>)ViewBag.assignmentObjectives)
+                                    {
+                                        if (s.assignmentId == x.assignmentId)
+                                        {
+                                            <li>  @x.objectives.objectiveName </li>
+                                        }
+                                    }
+                                </th>
+                                <th>
+                                    <ul>
+                                        @foreach (var x in (List<Document>)ViewBag.doc)
+                                        {
+                                            if (s.assignmentId == x.assignmentId)
+                                            {
+                                                <li>
+                                                    <a target="_blank" href="/Home/GetFile?documentId=@x.documentId"> @x.documentName </a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </th>
+                                @if (User.IsInRole("TEAMLEADER"))
+                                {
+                                    <th> <a class="btn btn-warning" href="/Assignment/Edit?Id=@s.assignmentId"> Edit  </a> </th>
+                                    <th> <a class="btn btn-danger" href="/Assignment/Delete?Id=@s.assignmentId&&IdTraining=@s.trainingId"> Delete  </a> </th>
+
+                                    <th> <a class="btn btn-rounded btn-success" href="/TeamLeader/Report?Id=@s.assignmentId"> View  </a></th>
+                                }
+                                @if (User.IsInRole("SCHOOLSUPERVISOR") || (User.IsInRole("ADMIN")))
+                                {
+                                    <th> <a class="btn btn-secondary" href="/Report/ReportTimeline?Id=@s.assignmentId"> TimeLine   </a></th>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</body>
+@{
+
+}

@@ -1,0 +1,83 @@
+﻿@using ProjectHTU.DTO
+@using ProjectHTU.Entities;
+@model InsertAssignmentDTO
+
+
+<body class="container" style="margin-top:100px">
+
+    <form method="post" enctype="multipart/form-data" action="/Assignment/Insert?@Model.trainingId">
+        <h2>Create a new Assignment.</h2>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="assignmentName">Assignment Name</label>
+                <input type="text" class="form-control" asp-for="assignmentName" placeholder="Assignment Name ">
+                <span asp-validation-for="assignmentName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="assignmentDescription">Assignment Description</label>
+                <input type="text" class="form-control" asp-for="assignmentDescription" placeholder="Assignment Description ">
+                <span asp-validation-for="assignmentDescription" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group col-md-12">
+                <label for="assignmentNote ">Assignmen Notes</label>
+                <input type="text" class="form-control" asp-for="assignmentNote" placeholder="Assignmen Notes">
+                <span asp-validation-for="assignmentNote" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Start Date</label>
+
+                <input name="startDate" type="date" />
+                <span asp-validation-for="startDate" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="endDate">End Date</label>
+
+                <input name="endDate" type="date" />
+                <span asp-validation-for="endDate" class="text-danger"></span>
+
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Attatchment</label>
+            <input class="form-control" type="file" name="formFile" id="formFileMultiple" multiple>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label style="display:block" class="form-control-label">Objectives</label>
+                <select class="form-select scroll-element" name="objectiveIds" id="multiple-select-clear-field" data-placeholder="Objectives" multiple>
+                    <option> select Objectives </option>
+                    @foreach (var s in (List<TrainingObjective>)ViewBag.trainingObjectives)
+                    {
+                        <!--rev-->
+                        if (Model.trainingId == s.trainingId)
+                        {
+
+                            <option name="objectiveIds" style="display:inline-block" value="@s.objectiveId"> @s.objectives.objectiveName </option>
+
+                            <br />
+                        }
+                    }
+                    <span asp-validation-for="objectiveIds" class="text-danger"></span>
+
+                </select>
+            </div>
+        </div>
+
+        <button id="registerSubmit" type="submit" class=" btn btn-lg btn-success">Add Assignment</button>
+
+        <div class="form-floating">
+            <input asp-for="trainingId" style="display:none" value="@Model.trainingId" />
+        </div>
+    </form>
+</body>
+@{
+
+}

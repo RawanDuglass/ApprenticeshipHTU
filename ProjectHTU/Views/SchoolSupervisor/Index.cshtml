@@ -1,0 +1,51 @@
+﻿@using ProjectHTU.Entities
+<body class="container" style="margin-top:100px">
+
+    <div class="container" class=" col-md-6">
+
+        <div class="card-header ">
+            @if (User.IsInRole("ADMIN"))
+            {
+                <a class="btn btn-secondary" href="/SchoolSupervisor/Add"> Add new SchoolSupervisor </a>
+            }
+            <p class="card-category ">  </p>
+        </div>
+        <div class="card-body">
+            <table class="table table-head-bg-success table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">School Name</th>
+                        <th scope="col">Email</th>
+                        @if (User.IsInRole("ADMIN"))
+                        {
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        }
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var s in (List<SchoolSupervisor>)ViewBag.schoolSupervisor)
+                    {
+                        <tr>
+                            <th>-</th>
+                            <th> @s.fullName </th>
+                            <th> @s.school.schoolName</th>
+                            <th> @s.Email </th>
+                            @if (User.IsInRole("ADMIN"))
+                            {
+                                <th><a class="btn btn-warning" href="/SchoolSupervisor/Edit?Id=@s.Id"> Edit  </a></th>
+                                <th><a class="btn btn-danger" href="/SchoolSupervisor/Delete?Id=@s.Id"> Delete  </a></th>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+@{
+
+}

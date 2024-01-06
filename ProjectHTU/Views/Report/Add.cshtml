@@ -1,0 +1,61 @@
+﻿@using ProjectHTU.DTO
+@using ProjectHTU.Entities;
+@model InsertReportDTO
+
+
+<body class="container" style="margin-top:100px">
+
+    <form enctype="multipart/form-data" method="post" action="/Report/Insert">
+        <h2>Create a new Report</h2>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="reportName">Report Name</label>
+                <input type="text" class="form-control" asp-for="reportName" placeholder="Report Name ">
+                <span asp-validation-for="reportName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="reportDescription">Report Description</label>
+                <input type="text" class="form-control" asp-for="reportDescription" placeholder="Report Description ">
+                <span asp-validation-for="reportDescription" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group col-md-12">
+                <label for="reportNotes ">Report Notes</label>
+                <input type="text" class="form-control" asp-for="reportNotes" placeholder="Report Notes">
+                <span asp-validation-for="reportNotes" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Attatchment</label>
+            <input class="form-control" type="file" name="formFile" id="formFileMultiple" multiple>
+        </div>
+        <button type="submit" class=" btn btn-lg btn-success">Submit</button>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input style="display:none" asp-for="assignmentId" value="@Model.assignmentId" class="form-control" autocomplete="username" aria-required="true" />
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input style="display:none" asp-for="reportStatusId" value="@Model.reportStatusId" class="form-control" autocomplete="username" aria-required="true" />
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input style="display:none" asp-for="documentId" value="@Model.documentId" class="form-control" autocomplete="username" aria-required="true" />
+
+                </div>
+            </div>
+        </div>
+    </form>
+</body>

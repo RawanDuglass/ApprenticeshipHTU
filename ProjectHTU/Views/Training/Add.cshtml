@@ -1,0 +1,91 @@
+﻿@using ProjectHTU.DTO
+@using ProjectHTU.Entities;
+@model InsertTrainingDTO;
+
+<body class="container" style="margin-top:100px">
+
+    <form action="/Training/Insert">
+        <h3>Create a new Training </h3>
+        <hr />
+
+        <div class="form-row">
+
+            <div class="form-group col-md-4">
+
+                <label style="display:block" class="form-control-label">Student</label>
+                <select name="studentId" class="form-select" aria-label="Default select example">
+                    <option> select student </option>
+
+                    @foreach (var s in (List<Student>)ViewBag.students)
+                    {
+                        <option value="@s.Id"> @s.fullName </option>
+                    }
+                </select>
+                <span asp-validation-for="studentId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label style="display:block" class="form-control-label">TeamLeader</label>
+                <select name="teamLeaderId" class="form-select" aria-label="Default select example">
+                    <option> select teamLeader </option>
+
+                    @foreach (var s in (List<TeamLeader>)ViewBag.teamlraders)
+                    {
+                        <option value="@s.Id"> @s.fullName </option>
+                    }
+                    <span asp-validation-for="teamLeaderId" class="text-danger"></span>
+
+                </select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label style="display:block" class="form-control-label">SchoolSupervisor</label>
+                <select name="schoolSupervisorId" class="form-select" aria-label="Default select example">
+                    <option> select schoolSupervisor </option>
+                    @foreach (var s in (List<SchoolSupervisor>)ViewBag.schoolsupervisors)
+                    {
+                        <option value="@s.Id"> @s.fullName </option>
+                    }
+                    <span asp-validation-for="schoolSupervisorId" class="text-danger"></span>
+
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Start Date</label>
+
+                <input name="startDate" type="date" />
+                <span asp-validation-for="startDate" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="endDate">End Date</label>
+
+                <input name="endDate" type="date" />
+                <span asp-validation-for="endDate" class="text-danger"></span>
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label style="display:block" class="form-control-label">Objectives</label>
+                <select class="form-select scroll-element" name="objectiveIds" id="multiple-select-clear-field" data-placeholder="Objectives" multiple>
+                    <option> select Objectives </option>
+                    @foreach (var s in (List<Objective>)ViewBag.objectives)
+                    {
+
+                        <option value="@s.objectiveId"> @s.objectiveName </option>
+                    }
+                    <span asp-validation-for="objectiveIds" class="text-danger"></span>
+
+                </select>
+            </div>
+        </div>
+
+        <button id="registerSubmit" type="submit" class=" btn btn-lg btn-success">Add Training</button>
+    </form>
+
+</body>
