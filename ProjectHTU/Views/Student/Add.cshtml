@@ -47,7 +47,7 @@
             <div class="form-group col-md-6">
 
                 <label style="display:block" class="form-control-label">Roles</label>
-                <select asp-for="major" class="form-select" aria-label="Default select example">
+                <select asp-for="roleIds" class="form-select" aria-label="Default select example">
                     <option> select role </option>
                     @foreach (var R in (List<IdentityRole>)ViewBag.roles)
                     {

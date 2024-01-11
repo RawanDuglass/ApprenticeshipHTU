@@ -60,9 +60,9 @@
                         if (Model.trainingId == s.trainingId)
                         {
 
-                            <option name="objectiveIds" style="display:inline-block" value="@s.objectiveId"> @s.objectives.objectiveName </option>
+                            <option name="objectiveIds" value="@s.objectiveId"> @s.objectives.objectiveName </option>
 
-                            <br />
+                           
                         }
                     }
                     <span asp-validation-for="objectiveIds" class="text-danger"></span>

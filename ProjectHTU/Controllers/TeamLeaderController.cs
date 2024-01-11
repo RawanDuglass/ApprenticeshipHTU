@@ -54,7 +54,9 @@ namespace ProjectHTU.Controllers
                 teamLeader.Email = insertTeamLeader.Email;
                 teamLeader.companyId = insertTeamLeader.companyId;
                 await teamLeaderRepo.CreateTeamLeader(teamLeader, insertTeamLeader.password, insertTeamLeader.roleIds);
-                return RedirectToAction("SendEmail", "TeamLeader");
+
+                return RedirectToAction("Index", "TeamLeader" , new {Id=teamLeader.Id});
+                //return RedirectToAction("SendEmail", "TeamLeader");
             }
             else
             {

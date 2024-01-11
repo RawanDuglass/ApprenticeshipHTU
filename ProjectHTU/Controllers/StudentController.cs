@@ -82,7 +82,7 @@ namespace ProjectHTU.Controllers
             student.Id = Id;
 
             await studentRepo.UpdateStudent(student);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index" , "Student");
         }
 
         [Authorize(Roles = "ADMIN")]
